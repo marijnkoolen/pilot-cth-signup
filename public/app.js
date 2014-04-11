@@ -15,7 +15,7 @@ validationApp.controller('mainController', function($scope, $firebase) {
 		"oth": "Other"
 	}
 
-	var usersFire = new Firebase('https://popping-fire-9951.firebaseio.com/users/');
+	var usersFire = new Firebase('https://popping-fire-9951.firebaseio.com/cthpilot/signup/');
 	$scope.usersFire = $firebase(usersFire);
 
 	// function to submit the form after all validation has occurred
@@ -35,7 +35,7 @@ validationApp.controller('mainController', function($scope, $firebase) {
 		// check to make sure the form is completely valid
 		if (isValid) {
 			$scope.usersFire.$add(user);
-			alert('our form is amazing');
+			alert('Thank you for signing up to the Coding the Humanities pilot! You will be notified soon!');
 		}
 
 	};
