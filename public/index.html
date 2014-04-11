@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" />
+    <style>
+        body     { padding-top:30px; }
+    </style>
+
+    <!-- JS -->
+    <script src="http://code.angularjs.org/1.2.6/angular.js"></script>
+	<script src="https://cdn.firebase.com/js/client/1.0.11/firebase.js"></script>
+	<script src="https://cdn.firebase.com/libs/angularfire/0.7.1/angularfire.min.js"></script>
+    <script src="app.js"></script>
+</head>
+<body ng-app="validationApp" ng-controller="mainController">
+<div class="container">
+
+    <!-- PAGE HEADER -->
+    <div class="page-header"><h1>AngularJS Form Validation</h1></div>
+
+    <!-- =================================================================== -->
+    <!-- FORM ============================================================== -->
+    <!-- =================================================================== -->
+
+    <!-- pass in the variable if our form is valid or invalid -->
+    <form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+
+        <!-- NAME -->
+        <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
+            <label>*Name</label>
+            <input type="text" name="name" class="form-control" ng-model="user.name" required>
+            <p ng-show="userForm.name.$invalid && !userForm.name.$pristine" class="help-block">You name is required.</p>
+        </div>
+
+        <!-- STUDENT NUMBER -->
+        <div class="form-group" ng-class="{ 'has-error' : userForm.studno.$invalid && !userForm.studno.$pristine }">
+            <label>*Student number</label>
+            <input type="text" name="studno" class="form-control" ng-model="user.studno" ng-minlength="7" ng-maxlength="9">
+            <p ng-show="userForm.studno.$error.minlength" class="help-block">Student number is too short.</p>
+            <p ng-show="userForm.studno.$error.maxlength" class="help-block">Student number is too long.</p>
+        </div>
+
+        <!-- EMAIL -->
+        <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+            <label>*Email</label>
+            <input type="email" name="email" class="form-control" ng-model="user.email" required>
+            <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Enter a valid email.</p>
+        </div>
+
+        <!-- STUDY -->
+        <div class="form-group" ng-class="{ 'has-error' : userForm.study.$invalid && !userForm.study.$pristine }">
+            <label>*Study</label>
+            <input type="text" name="study" class="form-control" ng-model="user.study" required>
+            <p ng-show="userForm.study.$invalid && !userForm.study.$pristine" class="help-block">Study/discipline must be filled in.</p>
+        </div>
+
+        <!-- YEAR -->
+        <div class="form-group" ng-class="{ 'has-error' : userForm.year.$invalid && !userForm.year.$pristine }">
+            <label>*Year</label>
+			<select name="year" class="form-control" ng-model="user.year" ng-options="id as value for (id, value) in yearOptions" required></select>
+            <p ng-show="userForm.year.$invalid && !userForm.year.$pristine" class="help-block">Please choose a year.</p>
+        </div>
+
+        <!-- EXPERIENCE -->
+        <div class="form-group" ng-class="{ 'has-error' : userForm.experience.$invalid && !userForm.experience.$pristine }">
+            <label>*Programming Experience (languages, years of experience, etc.)</label>
+            <input type="text" name="experience" class="form-control" ng-model="user.experience" required>
+            <p ng-show="userForm.experience.$invalid && !userForm.experience.$pristine" class="help-block">Experience must be filled (fill in 'none' if you have none).</p>
+        </div>
+
+        <!-- MOTIVATION -->
+        <div class="form-group" ng-class="{ 'has-error' : userForm.motivation.$invalid && !userForm.motivation.$pristine }">
+            <label>*Motivation</label>
+            <input type="text" name="motivation" class="form-control" ng-model="user.motivation" ng-minlength="100" required>
+			<p ng-show="userForm.motivation.$error.minlength" class="help-block">Motivation is too short. Should be at least 100 characters.</p>
+        </div>
+
+        <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Submit</button>
+
+    </form>
+	</div>
+</div>
+</body>
+</html>
